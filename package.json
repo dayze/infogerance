@@ -1,0 +1,12 @@
+{
+  "name": "infogerance",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/dayze/infogerance.git",
+  "author": "Dez <elye24@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "node-cmd": "^3.0.0",
+    "yargs": "^10.0.3"
+  }
+}
