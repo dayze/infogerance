@@ -53,9 +53,24 @@ class Virtualhost {
     await getAsync(`a2ensite ${this.user}-dev && a2ensite ${this.user}-prod`)
   }
 
+  async a2dissite () {
+    await getAsync(`a2dissite ${this.user}-dev && a2dissite ${this.user}-prod`)
+  }
+
+  async delete () {
+    await getAsync(`rm -rf /etc/apache2/sites-available/${this.user}-dev 
+                  && rm -rf /etc/apache2/sites-available/${this.user}-prod`)
+  }
+
   async apacheRestart () {
     await getAsync(`service apache2 restart`)
   }
+
+  async apacheReload () {
+    await getAsync(`service apache2 reload`)
+  }
+
+
 
 }
 
