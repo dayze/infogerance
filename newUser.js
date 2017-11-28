@@ -21,8 +21,9 @@ getAsync(`id -u ${user}`)
     getAsync(`useradd ${user}`)
   })*/
 
-  (async function () {
-    let isUSerPresent = await getAsync(`id -u ${user}`)
-    console.log(isUSerPresent)
-  })
+const main = async () => {
+  let isUserAlreadyInUnix = await getAsync('id -u ${user}')
+  console.log(isUserAlreadyInUnix)
+}
 
+main()
