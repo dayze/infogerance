@@ -32,13 +32,15 @@ const main = async () => {
     let isMysqlUserExist = await getAsync(`mysql -u root -se "SELECT EXISTS(SELECT 1 FROM mysql.user WHERE user = '${user}');"`)
     let isDatabasePresent = await getAsync(`mysql -u root -se "SELECT SCHEMA_NAME FROM INFORMATION_SCHEMA.SCHEMATA
                                            WHERE SCHEMA_NAME = '${user}'"`)
-    isMysqlUserExist[0].trim() !== '0' ?
-      await getAsync(`mysql -u root -se "DROP USER ${user}@localhost;"`) :
-      console.log(`No user account ${user} \nContinue...`)
+    if (isMysqlUserExist[0].trim() !== '0') {
+      await getAsync(`mysql -u root -se "DROP USER ${user}@localhost;"`)
+      console.log(`${user} user mysql is delete`)
+    } else {console.log(`No user account ${user} \nContinue...`)}
 
-    isDatabasePresent[0].trim() !== '' ?
-      await getAsync(`mysql -u root -se "DROP DATABASE ${user};"`) :
-      console.log(`No database named ${user} \nContinue...`)
+    if (isDatabasePresent[0].trim() !== '') {
+      await getAsync(`mysql -u root -se "DROP DATABASE ${user};"`)
+      console.log(`${user} database mysql is delete`)
+    } else {console.log(`No database named ${user} \nContinue...`)}
 
   } catch (err) {
     console.log(err)
