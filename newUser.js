@@ -6,21 +6,6 @@ const utils = require('./utils')
 
 const getAsync = Promise.promisify(cmd.get, {multiArgs: true, context: cmd})
 
-/*if (user === '') {
-  utils.handleError('Error: You need to specify an user. ex: --user=toto')
-}
-// check if an user is not already present in the system
-getAsync(`id -u ${user}`)
-  .then(() => {
-    utils.handleError("Error: User already exist !")
-  })
-  .catch((err) => {
-    // passed here if there is no user
-  })
-  .then(() => {
-    getAsync(`useradd ${user}`)
-  })*/
-
 if (user === '') {
   utils.handleError('Error: You need to specify an user. ex: --user=toto')
 }
@@ -33,10 +18,10 @@ const main = async () => {
     // passed here if there is no user
   }
   try {
-    let mysql = await getAsync(`mysql -u root -se "SELECT EXISTS(SELECT 1 FROM mysql.user WHERE user = '${user}');"`)
-    console.log(mysql[0].trim())
+    let isMysqlUserExist = await getAsync(`mysql -u root -se "SELECT EXISTS(SELECT 1 FROM mysql.user WHERE user = '${user}');"`)
+    if (isMysqlUserExist[0].trim() === '1') {utils.handleError('Error: Mysql user already exist !')}
   } catch (err) {
-    console.log(err)
+    utils.handleError(err)
   }
 
 }
