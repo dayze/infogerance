@@ -11,7 +11,7 @@ if (user === '') {
 }
 
 const main = async () => {
-  /* try {
+   try {
      await getAsync(`id -u ${user}`)
    } catch (err) {
      utils.handleError(`Error: ${user} does not exist!`)
@@ -23,26 +23,23 @@ const main = async () => {
      }
    } catch (err) {
      utils.handleError(err)
-   }*/
+   }
   try {
-    /*// DEL SYSTEM
+    // DEL SYSTEM
     await getAsync(`userdel ${user}`)
-    console.log(`delete of ${user}`)*/
+    console.log(`delete of ${user}`)
     // DEL MYSQL
     let isMysqlUserExist = await getAsync(`mysql -u root -se "SELECT EXISTS(SELECT 1 FROM mysql.user WHERE user = '${user}');"`)
     let isDatabasePresent = await getAsync(`mysql -u root -se "SELECT SCHEMA_NAME FROM INFORMATION_SCHEMA.SCHEMATA
                                            WHERE SCHEMA_NAME = '${user}'"`)
-    if (isMysqlUserExist[0].trim() === '0') {
-      console.log(`No user account ${user} \n Continue...`)
-    }
-    console.log(isDatabasePresent)
-    /*else
-      {
-        await getAsync(`mysql -u root -se "DROP USER ${user}@localhost;"`)
-        console.log(`Delete of mysql user ${user}`)
-        await getAsync(`mysql -u root -se "DROP DATABASE ${user};"`)
-        console.log(`Drop of database ${user}`)
-      }*/
+    isMysqlUserExist[0].trim() !== '0' ?
+      await getAsync(`mysql -u root -se "DROP USER ${user}@localhost;"`) :
+      console.log(`No user account ${user} \nContinue...`)
+
+    isDatabasePresent[0].trim() !== '' ?
+      await getAsync(`mysql -u root -se "DROP DATABASE ${user};"`) :
+      console.log(`No database named ${user} \nContinue...`)
+
   } catch (err) {
     console.log(err)
   }
