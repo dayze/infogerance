@@ -27,11 +27,18 @@ if (user === '') {
 
 const main = async () => {
   try {
-    let isUserAlreadyInUnix = await getAsync(`id -u ${user}`)
+    await getAsync(`id -u ${user}`)
+    utils.handleError('Error: User already exist !')
+  } catch (err) {
+    // passed here if there is no user
+  }
+  try {
+    let mysql = await getAsync(`mysql -u root -p root -se "SELECT EXISTS(SELECT 1 FROM mysql.user WHERE user = '${user}');"`)
+    console.log(mysql)
   } catch (err) {
     console.log(err)
   }
-  console.log('next')
+
 }
 
 main()
