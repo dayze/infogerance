@@ -18,6 +18,7 @@ const main = async () => {
     await getAsync(`userdel ${user}`)
     console.log(`${user} unix user is delete`)
   } catch (err) {
+    console.log(err)
     if (err) {console.log(`No system user ${user} \nContinue`)}
   }
   try {
