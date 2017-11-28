@@ -58,7 +58,7 @@ class Virtualhost {
     try {
       await getAsync(`a2dissite ${this.user}-dev && a2dissite ${this.user}-prod`)
     } catch (err) {
-      console.log(`There is no ${this.user}-dev.conf and ${this.user}-prod.conf  `)
+      console.log(`There is no ${this.user}-dev.conf and ${this.user}-prod.conf \nContinue...`)
     }
   }
 

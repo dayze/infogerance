@@ -53,6 +53,7 @@ const main = async () => {
 
     //DELETE OF WEB DIRECTORY
     await getAsync(`rm -rf /users/${user}`)
+    console.log(`drop of /users/${users} directory`)
 
   } catch (err) {
     console.log(err)
