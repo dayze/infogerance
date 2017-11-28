@@ -34,7 +34,7 @@ const main = async () => {
       console.log(`No user account ${user} \n Continue...`)
     }
     else {
-      await getAsync(`DROP USER ${user}@localhost;`)
+      await getAsync(`mysql -u root -se "DROP USER ${user}@localhost;"`)
     }
   } catch (err) {
     console.log(err)
