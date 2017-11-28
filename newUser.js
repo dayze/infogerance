@@ -10,14 +10,14 @@ if (user === '') {
   utils.handleError('Error: You need to specify an user. ex: --user=toto')
 }
 // check if an user is not already present in the system
-getAsync(`grep -c '^${user}:' /etc/passwd`)
+getAsync(`id -u ${username}`)
   .then((data) => {
-  if (data[0].trim() === '0') {
-    console.log('good, no user are present with this username')
-  }
-})
+    if (data[0].trim() === '0') {
+      console.log('good, no user are present with this username')
+    }
+  })
   .then(() => {
-  console.log("ok")
+    console.log('ok')
   })
   .catch((err) => {
     console.log(err)
