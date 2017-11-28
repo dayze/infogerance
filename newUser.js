@@ -26,8 +26,11 @@ if (user === '') {
 }
 
 const main = async () => {
-  let isUserAlreadyInUnix = await getAsync(`id -u ${user}`)
-  console.log(isUserAlreadyInUnix)
+  try {
+    let isUserAlreadyInUnix = await getAsync(`id -u ${user}`)
+  } catch (e) {
+    console.log(e)
+  }
 }
 
 main()
