@@ -15,12 +15,12 @@ const main = async () => {
   try {
     await getAsync(`id -u ${user}`)
   } catch (err) {
-    utils.handleError(`Error: ${user} does not exist!`)
+    console.log(`No system user ${user} \nContinue`)
   }
   try {
     let isMysqlUserExist = await getAsync(`mysql -u root -se "SELECT EXISTS(SELECT 1 FROM mysql.user WHERE user = '${user}');"`)
     if (isMysqlUserExist[0].trim() === '0') {
-      console.log(`No user account ${user} \n Continue...`)
+      console.log(`No user account ${user} \nContinue...`)
     }
   } catch (err) {
     utils.handleError(err)
