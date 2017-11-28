@@ -1,16 +1,27 @@
 const argv = require('yargs').argv
+const Promise = require('bluebird')
 const cmd = require('node-cmd')
 const user = argv.user
 const utils = require('./utils')
+
+const getAsync = Promise.promisify(cmd.get, {multiArgs: true, context: cmd})
 
 if (user === '') {
   utils.handleError('Error: You need to specify an user. ex: --user=toto')
 }
 // check if an user is not already present in the system
-cmd.get(`grep -c '^${user}:' /etc/passwd`, (err, data, stderr) => {
-  if(data.trim() === '0') {
+getAsync(`getent passwd ${user}`)
+  .then((err, data, stderr) => {
+  if (data.trim() === '0') {
     console.log('good, no user are present with this username')
   }
 })
+  .then(() => {
+  console.log("ok")
+  })
+  .catch((err) => {
+    console.log(err)
+  })
+
 
 
