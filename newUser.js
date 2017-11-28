@@ -33,7 +33,7 @@ const main = async () => {
     // passed here if there is no user
   }
   try {
-    let mysql = await getAsync(`mysql -u root -p root -se "SELECT EXISTS(SELECT 1 FROM mysql.user WHERE user = '${user}');"`)
+    let mysql = await getAsync(`mysql -u root -se "SELECT EXISTS(SELECT 1 FROM mysql.user WHERE user = '${user}');"`)
     console.log(mysql)
   } catch (err) {
     console.log(err)
