@@ -3,6 +3,7 @@ const Promise = require('bluebird')
 const cmd = require('node-cmd')
 const user = argv.user
 const utils = require('./utils')
+const permissionUser = require('./permissionUser')
 
 const getAsync = Promise.promisify(cmd.get, {multiArgs: true, context: cmd})
 
@@ -42,6 +43,8 @@ const main = async () => {
                     mkdir ${pathOfWebUserFolder}/private &&
                     mkdir ${pathOfWebUserFolder}/www-dev &&
                     mkdir ${pathOfWebUserFolder}/www-prod`)
+    await permissionUser.apply(pathOfWebUserFolder)
+
   } catch (err) {
     utils.handleError(err)
   }
