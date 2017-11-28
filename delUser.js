@@ -11,26 +11,27 @@ if (user === '') {
 }
 
 const main = async () => {
- /* try {
-    await getAsync(`id -u ${user}`)
-  } catch (err) {
-    utils.handleError(`Error: ${user} does not exist!`)
-  }
-  try {
-    let isMysqlUserExist = await getAsync(`mysql -u root -se "SELECT EXISTS(SELECT 1 FROM mysql.user WHERE user = '${user}');"`)
-    if (isMysqlUserExist[0].trim() === '0') {
-      console.log(`No user account ${user} \n Continue...`)
-    }
-  } catch (err) {
-    utils.handleError(err)
-  }*/
+  /* try {
+     await getAsync(`id -u ${user}`)
+   } catch (err) {
+     utils.handleError(`Error: ${user} does not exist!`)
+   }
+   try {
+     let isMysqlUserExist = await getAsync(`mysql -u root -se "SELECT EXISTS(SELECT 1 FROM mysql.user WHERE user = '${user}');"`)
+     if (isMysqlUserExist[0].trim() === '0') {
+       console.log(`No user account ${user} \n Continue...`)
+     }
+   } catch (err) {
+     utils.handleError(err)
+   }*/
   try {
     /*// DEL SYSTEM
     await getAsync(`userdel ${user}`)
     console.log(`delete of ${user}`)*/
     // DEL MYSQL
     let isMysqlUserExist = await getAsync(`mysql -u root -se "SELECT EXISTS(SELECT 1 FROM mysql.user WHERE user = '${user}');"`)
-    let isDatabasePresent = await getAsync(`SELECT SCHEMA_NAME FROM INFORMATION_SCHEMA.SCHEMATA WHERE SCHEMA_NAME = '${user}'`)
+    let isDatabasePresent = await getAsync(`mysql -u root -se "SELECT SCHEMA_NAME FROM INFORMATION_SCHEMA.SCHEMATA
+                                           WHERE SCHEMA_NAME = '${user}'"`)
     if (isMysqlUserExist[0].trim() === '0') {
       console.log(`No user account ${user} \n Continue...`)
     }
