@@ -29,6 +29,8 @@ const main = async () => {
     let userPassword = utils.generatePassword()
     await getAsync(`echo "${user}:${userPassword}"|chpasswd`)
     await utils.writeFile('/root/userData', `${user}:${userPassword} \n`)
+    await getAsync(`mysql -u root -se "CREATE USER '${user}'@'localhost' IDENTIFIED BY '${userPassword}'`)
+    console.log(`Ajout de ${user} dans Mysql`)
   } catch (err) {
     utils.handleError(err)
   }
