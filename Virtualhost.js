@@ -58,8 +58,8 @@ class Virtualhost {
   }
 
   async delete () {
-    await getAsync(`rm -rf /etc/apache2/sites-available/${this.user}-dev 
-                  && rm -rf /etc/apache2/sites-available/${this.user}-prod`)
+    await getAsync(`rm -rf /etc/apache2/sites-available/${this.user}-dev`)
+    await getAsync(`rm -rf /etc/apache2/sites-available/${this.user}-prod`)
   }
 
   async apacheRestart () {
