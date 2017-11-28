@@ -6,7 +6,7 @@ const utils = require('./utils')
 
 const getAsync = Promise.promisify(cmd.get, {multiArgs: true, context: cmd})
 
-if (user === '') {
+/*if (user === '') {
   utils.handleError('Error: You need to specify an user. ex: --user=toto')
 }
 // check if an user is not already present in the system
@@ -15,11 +15,14 @@ getAsync(`id -u ${user}`)
     utils.handleError("Error: User already exist !")
   })
   .catch((err) => {
-
+    // passed here if there is no user
   })
   .then(() => {
-  console.log("ok")
+    getAsync(`useradd ${user}`)
+  })*/
+
+  (async function () {
+    let isUSerPresent = await getAsync(`id -u ${user}`)
+    console.log(isUSerPresent)
   })
-
-
 
