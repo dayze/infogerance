@@ -24,15 +24,24 @@ const main = async () => {
     utils.handleError(err)
   }
   try {
+    // ADD SYSTEM
     await getAsync(`useradd ${user} --groups sftp`)
     console.log(`Ajout de ${user}:sftp au système`)
     let userPassword = utils.generatePassword()
     await getAsync(`echo "${user}:${userPassword}"|chpasswd`)
     await utils.writeFile('/root/userData', `${user}:${userPassword} \n`)
+    // ADD MYSQL
     await getAsync(`mysql -u root -se "CREATE USER '${user}'@'localhost' IDENTIFIED BY '${userPassword}'";`)
     await getAsync(`mysql -u root -se "CREATE DATABASE ${user}";`)
     await getAsync(`mysql -u root -se "GRANT SELECT, UPDATE, DELETE, INSERT ON ${user}.* TO ${user}@localhost";`)
     console.log(`Ajout de ${user} dans Mysql`)
+    //CREATION OF FOLDER
+    let pathOfWebUserFolder = `/users/${user}`
+    await getAsync(`mkdir ${pathOfWebUserFolder} &&
+                    mkdir ${pathOfWebUserFolder}/log &&
+                    mkdir ${pathOfWebUserFolder}/private &&
+                    mkdir ${pathOfWebUserFolder}/www-dev &&
+                    mkdir ${pathOfWebUserFolder}/www-prod`)
   } catch (err) {
     utils.handleError(err)
   }
