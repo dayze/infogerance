@@ -34,7 +34,7 @@ const main = async () => {
   }
   try {
     let mysql = await getAsync(`mysql -u root -se "SELECT EXISTS(SELECT 1 FROM mysql.user WHERE user = '${user}');"`)
-    console.log(mysql)
+    console.log(mysql[0].trim())
   } catch (err) {
     console.log(err)
   }
