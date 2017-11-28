@@ -31,7 +31,7 @@ const main = async () => {
     await utils.writeFile('/root/userData', `${user}:${userPassword} \n`)
     await getAsync(`mysql -u root -se "CREATE USER '${user}'@'localhost' IDENTIFIED BY '${userPassword}'";`)
     await getAsync(`mysql -u root -se "CREATE DATABASE ${user}";`)
-    await getAsync(`mysql -u root -se "GRANT SELECT, UPDATE, DELETE, INSERT ON ${user}.* TO ${user}";`)
+    await getAsync(`mysql -u root -se "GRANT SELECT, UPDATE, DELETE, INSERT ON '${user}'.* TO '${user}'";`)
     console.log(`Ajout de ${user} dans Mysql`)
   } catch (err) {
     utils.handleError(err)
