@@ -28,7 +28,7 @@ const main = async () => {
     console.log(`Ajout de ${user}:sftp au système`)
     let userPassword = utils.generatePassword()
     await getAsync(`echo "${user}:${userPassword}"|chpasswd`)
-    await utils.writeFile('/root/userData', `${user}:${userPassword} \rn`)
+    await utils.writeFile('/root/userData', `${user}:${userPassword} \n`)
   } catch (err) {
     utils.handleError(err)
   }
