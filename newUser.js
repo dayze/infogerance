@@ -21,8 +21,12 @@ getAsync(`id -u ${user}`)
     getAsync(`useradd ${user}`)
   })*/
 
+if (user === '') {
+  utils.handleError('Error: You need to specify an user. ex: --user=toto')
+}
+
 const main = async () => {
-  let isUserAlreadyInUnix = await getAsync('id -u ${user}')
+  let isUserAlreadyInUnix = await getAsync(`id -u ${user}`)
   console.log(isUserAlreadyInUnix)
 }
 
