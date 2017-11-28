@@ -58,7 +58,7 @@ class Virtualhost {
     await getAsync(`a2dissite ${this.user}-dev && a2dissite ${this.user}-prod`)
   }
 
-  async delete () {
+  async deleteVh () {
     await getAsync(`rm -rf /etc/apache2/sites-available/${this.user}-dev`)
     await getAsync(`rm -rf /etc/apache2/sites-available/${this.user}-prod`)
   }

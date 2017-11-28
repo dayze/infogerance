@@ -48,7 +48,7 @@ const main = async () => {
     //DELETE OF VIRTUALHOST
     let vh = new VirtualHost(user)
     vh.a2dissite()
-    vh.delete()
+    vh.deleteVh()
     console.log("drop vhost conf files")
     vh.apacheReload()
 
