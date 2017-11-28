@@ -11,7 +11,7 @@ if (user === '') {
 }
 // check if an user is not already present in the system
 getAsync(`grep -c '^${user}:' /etc/passwd`)
-  .then((err, data, stderr) => {
+  .then((data) => {
   if (data.trim() === '0') {
     console.log('good, no user are present with this username')
   }
