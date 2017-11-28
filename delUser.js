@@ -12,10 +12,15 @@ if (user === '' || user.match(/[^A-Za-z0-9 ]/)) {
 }
 
 const main = async () => {
+  // DEL SYSTEM
   try {
     await getAsync(`id -u ${user}`)
   } catch (err) {
-    console.log(`No system user ${user} \nContinue`)
+    if (err) {console.log(`No system user ${user} \nContinue`)}
+    else {
+      await getAsync(`userdel ${user}`)
+      console.log(`${user} unix user is delete`)
+    }
   }
   try {
     let isMysqlUserExist = await getAsync(`mysql -u root -se "SELECT EXISTS(SELECT 1 FROM mysql.user WHERE user = '${user}');"`)
@@ -26,9 +31,6 @@ const main = async () => {
     utils.handleError(err)
   }
   try {
-    // DEL SYSTEM
-    await getAsync(`userdel ${user}`)
-    console.log(`${user} unix user is delete`)
     // DEL MYSQL
     let isMysqlUserExist = await getAsync(`mysql -u root -se "SELECT EXISTS(SELECT 1 FROM mysql.user WHERE user = '${user}');"`)
     let isDatabasePresent = await getAsync(`mysql -u root -se "SELECT SCHEMA_NAME FROM INFORMATION_SCHEMA.SCHEMATA
