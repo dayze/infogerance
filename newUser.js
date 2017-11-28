@@ -4,6 +4,7 @@ const cmd = require('node-cmd')
 const user = argv.user
 const utils = require('./utils')
 const permissionUser = require('./permissionUser')
+const VirtualHost = require('./Virtualhost')
 
 const getAsync = Promise.promisify(cmd.get, {multiArgs: true, context: cmd})
 
@@ -27,16 +28,18 @@ const main = async () => {
   try {
     // ADD SYSTEM
     await getAsync(`useradd ${user} --groups sftp`)
-    console.log(`Ajout de ${user}:sftp au système`)
+    console.log(`add of ${user}:sftp into system`)
     let userPassword = utils.generatePassword()
     await getAsync(`echo "${user}:${userPassword}"|chpasswd`)
     await utils.writeFile('/root/userData', `${user}:${userPassword} \n`)
+
     // ADD MYSQL
     await getAsync(`mysql -u root -se "CREATE USER '${user}'@'localhost' IDENTIFIED BY '${userPassword}'";`)
     await getAsync(`mysql -u root -se "CREATE DATABASE ${user}";`)
     await getAsync(`mysql -u root -se "GRANT SELECT, UPDATE, DELETE, INSERT ON ${user}.* TO ${user}@localhost";`)
-    console.log(`Ajout de ${user} dans Mysql`)
-    //CREATION OF FOLDER
+    console.log(`add of ${user}, creation of database ${user} and set permission into Mysql`)
+
+    //CREATION OF FOLDER AND PERMISSIONS
     let pathOfWebUserFolder = `/users/${user}`
     await getAsync(`mkdir ${pathOfWebUserFolder} &&
                     mkdir ${pathOfWebUserFolder}/log &&
@@ -44,7 +47,11 @@ const main = async () => {
                     mkdir ${pathOfWebUserFolder}/www-dev &&
                     mkdir ${pathOfWebUserFolder}/www-prod`)
     await permissionUser.apply(pathOfWebUserFolder, user)
+    console.log(`creation of web folders and set permissions in /users/${user}`)
 
+    //CREATION OF VIRTUALHOST
+    let vh = new VirtualHost(user)
+    vh.create().a2ensite()
   } catch (err) {
     utils.handleError(err)
   }
