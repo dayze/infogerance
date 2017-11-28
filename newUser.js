@@ -43,7 +43,7 @@ const main = async () => {
                     mkdir ${pathOfWebUserFolder}/private &&
                     mkdir ${pathOfWebUserFolder}/www-dev &&
                     mkdir ${pathOfWebUserFolder}/www-prod`)
-    await permissionUser.apply(pathOfWebUserFolder)
+    await permissionUser.apply(pathOfWebUserFolder, user)
 
   } catch (err) {
     utils.handleError(err)
