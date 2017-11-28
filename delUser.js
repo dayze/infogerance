@@ -18,7 +18,6 @@ const main = async () => {
     await getAsync(`userdel ${user}`)
     console.log(`${user} unix user is delete`)
   } catch (err) {
-    console.log(err)
     if (err) {console.log(`No system user ${user} \nContinue`)}
   }
   try {
@@ -53,7 +52,7 @@ const main = async () => {
 
     //DELETE OF WEB DIRECTORY
     await getAsync(`rm -rf /users/${user}`)
-    console.log(`drop of /users/${users} directory`)
+    console.log(`drop of /users/${user} directory`)
 
   } catch (err) {
     console.log(err)
