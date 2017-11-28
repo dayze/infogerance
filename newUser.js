@@ -27,7 +27,7 @@ const main = async () => {
   }
   try {
     // ADD SYSTEM
-    await getAsync(`useradd ${user} --groups sftp`)
+    await getAsync(`useradd ${user} -g sftp`) // todo test if primary group
     console.log(`add of ${user}:sftp into system`)
     let userPassword = utils.generatePassword()
     await getAsync(`echo "${user}:${userPassword}"|chpasswd`)
