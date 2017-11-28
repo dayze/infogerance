@@ -14,7 +14,7 @@ const main = async () => {
   try {
     await getAsync(`id -u ${user}`)
   } catch (err) {
-    utils.handleError('Error: ${user} does not exist!')
+    utils.handleError(`Error: ${user} does not exist!`)
   }
   try {
     let isMysqlUserExist = await getAsync(`mysql -u root -se "SELECT EXISTS(SELECT 1 FROM mysql.user WHERE user = '${user}');"`)
@@ -35,6 +35,9 @@ const main = async () => {
     }
     else {
       await getAsync(`mysql -u root -se "DROP USER ${user}@localhost;"`)
+      console.log(`Delete of mysql user ${user} \n`)
+      await getAsync(`mysql -u root -se "DROP DATABASE ${user};"`)
+      console.log(`Drop of database ${user}`)
     }
   } catch (err) {
     console.log(err)
