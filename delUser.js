@@ -15,12 +15,10 @@ const main = async () => {
   // DEL SYSTEM
   try {
     await getAsync(`id -u ${user}`)
+    await getAsync(`userdel ${user}`)
+    console.log(`${user} unix user is delete`)
   } catch (err) {
     if (err) {console.log(`No system user ${user} \nContinue`)}
-    else {
-      await getAsync(`userdel ${user}`)
-      console.log(`${user} unix user is delete`)
-    }
   }
   try {
     let isMysqlUserExist = await getAsync(`mysql -u root -se "SELECT EXISTS(SELECT 1 FROM mysql.user WHERE user = '${user}');"`)
