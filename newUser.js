@@ -53,6 +53,7 @@ const main = async () => {
     let vh = new VirtualHost(user)
     vh.create()
     vh.a2ensite()
+    vh.apacheRestart()
   } catch (err) {
     utils.handleError(err)
   }

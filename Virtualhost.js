@@ -52,6 +52,11 @@ class Virtualhost {
   async a2ensite () {
     await getAsync(`a2ensite ${this.user}-dev && a2ensite ${this.user}-prod`)
   }
+
+  async apacheRestart () {
+    await getAsync(`service apache2 restart`)
+  }
+
 }
 
 module.exports = Virtualhost
