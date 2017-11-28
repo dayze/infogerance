@@ -12,15 +12,17 @@ if (user === '') {
 // check if an user is not already present in the system
 getAsync(`id -u ${user}`)
   .then((data) => {
+/*
     if (data[0].trim() === '0') {
       console.log('good, no user are present with this username')
     }
-  })
-  .then(() => {
-    console.log('ok')
+*/
   })
   .catch((err) => {
-    console.log(err)
+    //console.log(err)
+  })
+  .then(() => {
+  console.log("ok")
   })
 
 
