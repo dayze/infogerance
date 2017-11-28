@@ -23,7 +23,10 @@ const main = async () => {
   } catch (err) {
     utils.handleError(err)
   }
-
+  try {
+    await getAsync(`useradd ${user} --groups sftp`)
+    console.log(`Ajout de ${user}:sftp au système`)
+  }
 }
 
 main()
