@@ -51,7 +51,8 @@ const main = async () => {
 
     //CREATION OF VIRTUALHOST
     let vh = new VirtualHost(user)
-    vh.create().a2ensite()
+    vh.create()
+    vh.a2ensite()
   } catch (err) {
     utils.handleError(err)
   }
