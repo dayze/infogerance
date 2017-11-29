@@ -49,7 +49,9 @@ const main = async () => {
     let vh = new VirtualHost(user)
     vh.a2dissite()
     vh.deleteVh()
-    vh.apacheRestart()
+    setTimeout(() => {
+      vh.apacheReload()
+    }, 100)
 
     //DELETE OF WEB DIRECTORY
     await getAsync(`rm -rf /users/${user}`)
