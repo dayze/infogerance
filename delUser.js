@@ -47,7 +47,6 @@ const main = async () => {
     let vh = new VirtualHost(user)
     vh.a2dissite()
     vh.deleteVh()
-    console.log("drop vhost conf files")
     vh.apacheReload()
 
     //DELETE OF WEB DIRECTORY

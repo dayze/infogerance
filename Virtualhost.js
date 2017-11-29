@@ -66,6 +66,7 @@ class Virtualhost {
   async deleteVh () {
     await getAsync(`rm -rf /etc/apache2/sites-available/${this.user}-dev.conf`)
     await getAsync(`rm -rf /etc/apache2/sites-available/${this.user}-prod.conf`)
+    console.log("drop vhost conf files")
   }
 
   async apacheRestart () {
