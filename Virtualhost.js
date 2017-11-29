@@ -59,7 +59,7 @@ class Virtualhost {
       await getAsync(`a2dissite ${this.user}-dev`)
       await getAsync(`a2dissite ${this.user}-prod`)
     } catch (err) {
-      console.log(`There is no ${this.user}-dev.conf and ${this.user}-prod.conf \nContinue...`)
+      console.log(`Already dissite or there is no ${this.user}-dev.conf and ${this.user}-prod.conf \nContinue...`)
     }
   }
 
