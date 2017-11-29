@@ -50,8 +50,8 @@ class Virtualhost {
   }
 
   async a2ensite () {
-    await getAsync(`a2ensite ${this.user}-dev 
-            && a2ensite ${this.user}-prod`)
+    await getAsync(`a2ensite ${this.user}-dev`)
+    await getAsync(`a2ensite ${this.user}-prod`)
   }
 
   async a2dissite () {
