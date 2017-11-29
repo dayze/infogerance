@@ -74,7 +74,11 @@ class Virtualhost {
   }
 
   async apacheReload () {
-    await getAsync(`service apache2 reload`)
+    try {
+      await getAsync(`service apache2 reload`)
+    } catch (err) {
+      console.log(err)
+    }
   }
 
 
