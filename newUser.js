@@ -7,7 +7,6 @@ const permissionUser = require('./permissionUser')
 const VirtualHost = require('./Virtualhost')
 
 const getAsync = Promise.promisify(cmd.get, {multiArgs: true, context: cmd})
-console.log(user.includes('*'))
 if (user === '' || user.match(/[^A-Za-z0-9 ]/)) {
   utils.handleError('Error: You need to specify an user. ex: --user=toto')
 }
