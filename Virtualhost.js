@@ -64,8 +64,8 @@ class Virtualhost {
   }
 
   async deleteVh () {
-    await getAsync(`rm -rf /etc/apache2/sites-available/${this.user}-dev`)
-    await getAsync(`rm -rf /etc/apache2/sites-available/${this.user}-prod`)
+    await getAsync(`rm -rf /etc/apache2/sites-available/${this.user}-dev.conf`)
+    await getAsync(`rm -rf /etc/apache2/sites-available/${this.user}-prod.conf`)
   }
 
   async apacheRestart () {
