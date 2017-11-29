@@ -33,7 +33,7 @@ const main = async () => {
     console.log(`add of ${user}:sftp into system`)
     let userPassword = utils.generatePassword()
     await getAsync(`echo "${user}:${userPassword}"|chpasswd`)
-    await utils.writeFile('/root/userData', `${user}:${userPassword} \n`)
+    await utils.writeFile('/root/userData', `${user}:${userPassword} mysql:${userPassword} mysqlDB: ${userPassword} \n`)
 
     // ADD MYSQL
     await getAsync(`mysql -u root -se "CREATE USER '${user}'@'localhost' IDENTIFIED BY '${userPassword}'";`)
