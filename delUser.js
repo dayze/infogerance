@@ -17,6 +17,8 @@ const main = async () => {
     await getAsync(`id -u ${user}`)
     await getAsync(`userdel ${user}`)
     console.log(`${user} unix user is delete`)
+    await getAsync(`sed -i "/${user}/d" /root/userData`)
+    console.log(`${user} into password file is delete`)
   } catch (err) {
     if (err) {console.log(`No system user ${user} \nContinue`)}
   }
