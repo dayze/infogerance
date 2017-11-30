@@ -39,10 +39,10 @@ const main = async () => {
     let isDatabasePresent = await getAsync(`mysql -u root -se "SELECT SCHEMA_NAME FROM INFORMATION_SCHEMA.SCHEMATA
                                            WHERE SCHEMA_NAME = '${user}'"`)
     console.log(isMysqlUserExist)
-    if (isMysqlUserExist[0].trim().replace(/\n/g, '') !== '0') {
+    if (isMysqlUserExist[0] !== '0') {
       await getAsync(`mysql -u root -se "DROP USER ${user}@localhost;"`)
       console.log(`${user} user mysql is delete`)
-    } else {console.log(`No user account ${user} \nContinue...`)}
+    } else {console.log(`No user account ${user} mysql \nContinue...`)}
 
     if (isDatabasePresent[0].trim() !== '') {
       await getAsync(`mysql -u root -se "DROP DATABASE ${user};"`)
