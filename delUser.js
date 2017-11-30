@@ -7,8 +7,11 @@ const VirtualHost = require('./Virtualhost')
 
 const getAsync = Promise.promisify(cmd.get, {multiArgs: true, context: cmd})
 
-if (user === '' || user.match(/[^A-Za-z0-9 ]/)) {
+if (user === '' || user === undefined) {
   utils.handleError('Error: You need to specify an user. ex: --user=toto')
+}
+if (user.match(/[^A-Za-z0-9 ]/)) {
+  utils.handleError('Error: invalid character into the username, only Alphanumeric allowed')
 }
 
 const main = async () => {
