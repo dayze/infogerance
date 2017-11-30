@@ -38,7 +38,6 @@ const main = async () => {
     let isMysqlUserExist = await getAsync(`mysql -u root -se "SELECT EXISTS(SELECT 1 FROM mysql.user WHERE user = '${user}');"`)
     let isDatabasePresent = await getAsync(`mysql -u root -se "SELECT SCHEMA_NAME FROM INFORMATION_SCHEMA.SCHEMATA
                                            WHERE SCHEMA_NAME = '${user}'"`)
-    console.log(isMysqlUserExist)
     if (isMysqlUserExist[0].trim() !== '0') {
       await getAsync(`mysql -u root -se "DROP USER ${user}@localhost;"`)
       console.log(`${user} user mysql is delete`)
