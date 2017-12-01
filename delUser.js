@@ -19,16 +19,18 @@ const main = async () => {
   try {
     await getAsync(`id -u ${user}`)
     await getAsync(`userdel ${user}`)
-    console.log(`${user} unix user is delete`)
+   // console.log(`${user} unix user is delete`)
     await getAsync(`sed -i "/${user}/d" /root/userData`)
-    console.log(`${user} into password file is delete`)
+  //  console.log(`${user} into password file is delete`)
   } catch (err) {
-    if (err) {console.log(`No system user ${user} \nContinue`)}
+    if (err) {
+      //console.log(`No system user ${user} \nContinue`)
+    }
   }
   try {
     let isMysqlUserExist = await getAsync(`mysql -u root -se "SELECT EXISTS(SELECT 1 FROM mysql.user WHERE user = '${user}');"`)
     if (isMysqlUserExist[0].trim() === '0') {
-      console.log(`No user account ${user} \nContinue...`)
+     // console.log(`No user account ${user} \nContinue...`)
     }
   } catch (err) {
     utils.handleError(err)
@@ -40,13 +42,17 @@ const main = async () => {
                                            WHERE SCHEMA_NAME = '${user}'"`)
     if (isMysqlUserExist[0].trim() !== '0') {
       await getAsync(`mysql -u root -se "DROP USER ${user}@localhost;"`)
-      console.log(`${user} user mysql is delete`)
-    } else {console.log(`No user account mysql ${user} \nContinue...`)}
+      //console.log(`${user} user mysql is delete`)
+    } else {
+      //console.log(`No user account mysql ${user} \nContinue...`)
+    }
 
     if (isDatabasePresent[0].trim() !== '') {
       await getAsync(`mysql -u root -se "DROP DATABASE ${user};"`)
       console.log(`${user} database mysql is delete`)
-    } else {console.log(`No database named ${user} \nContinue...`)}
+    } else {
+      //console.log(`No database named ${user} \nContinue...`)
+    }
 
     //DELETE OF VIRTUALHOST
     let vh = new VirtualHost(user)
@@ -58,10 +64,10 @@ const main = async () => {
 
     //DELETE OF WEB DIRECTORY
     await getAsync(`rm -rf /users/${user}`)
-    console.log(`drop of /users/${user} directory`)
+   // console.log(`drop of /users/${user} directory`)
 
   } catch (err) {
-    console.log(err)
+   // console.log(err)
   }
 
 }

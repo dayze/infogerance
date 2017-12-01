@@ -30,7 +30,7 @@ const main = async () => {
   try {
     // ADD SYSTEM
     await getAsync(`useradd ${user} -g sftp`) // todo test if primary group
-    console.log(`add of ${user}:sftp into system`)
+    // console.log(`add of ${user}:sftp into system`)
     let userPassword = utils.generatePassword()
     await getAsync(`echo "${user}:${userPassword}"|chpasswd`)
     await utils.writeFile('/root/userData', `${user}:${userPassword} mysql:${userPassword} mysqlDB: ${userPassword} \n`)
@@ -39,7 +39,7 @@ const main = async () => {
     await getAsync(`mysql -u root -se "CREATE USER '${user}'@'localhost' IDENTIFIED BY '${userPassword}'";`)
     await getAsync(`mysql -u root -se "CREATE DATABASE ${user}";`)
     await getAsync(`mysql -u root -se "GRANT SELECT, UPDATE, DELETE, INSERT ON ${user}.* TO ${user}@localhost";`)
-    console.log(`add of ${user}, creation of database ${user} and set permission into Mysql`)
+    // console.log(`add of ${user}, creation of database ${user} and set permission into Mysql`)
 
     //CREATION OF FOLDER AND PERMISSIONS
     let pathOfWebUserFolder = `/users/${user}`
@@ -49,7 +49,7 @@ const main = async () => {
                     mkdir ${pathOfWebUserFolder}/www-dev &&
                     mkdir ${pathOfWebUserFolder}/www-prod`)
     await permissionUser.apply(pathOfWebUserFolder, user)
-    console.log(`creation of web folders and set permissions in /users/${user}`)
+    // console.log(`creation of web folders and set permissions in /users/${user}`)
 
     //CREATION OF VIRTUALHOST
     let vh = new VirtualHost(user)
@@ -61,6 +61,7 @@ const main = async () => {
   } catch (err) {
     utils.handleError(err)
   }
+  console.log("done")
 }
 
 main()
